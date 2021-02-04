@@ -1,49 +1,51 @@
+import java.awt.*;
 import javax.swing.*;
-import javax.swing.plaf.TreeUI;
-import javax.swing.table.TableRowSorter;
+import java.awt.event.*;
+import java.util.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame{
 
-    private MainMenu mainMenuPage;
-    private FirstPage firstPage;
-    private SecondPage secondPage;
-
-    private Students[] students = {};
+    public MenuPage menuPage;
+    public AddStudentPage addStudentPage;
+    public ListStudentPage listStudentPage;
 
     public MainFrame(){
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Mini Project");
-        setSize(500,500);
+
+        setSize(600,600);
         setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Student Application");
+        setResizable(false);
 
-        mainMenuPage = new MainMenu(this);
-        mainMenuPage.setVisible(true);
-        add(mainMenuPage);
+        menuPage = new MenuPage();
+        menuPage.setLocation(0,0);
+        add(menuPage);
 
-        firstPage = new FirstPage(this);
-        firstPage.setVisible(false);
-        add(firstPage);
+        addStudentPage = new AddStudentPage();
+        addStudentPage.setLocation(0,0);
+        add(addStudentPage);
 
-        secondPage = new SecondPage(this);
-        secondPage.setVisible(false);
-        add(secondPage);
-
-
+        listStudentPage = new ListStudentPage(this);
+        listStudentPage.setLocation(0,0);
+        add(listStudentPage);
+        showMenuPage();
 
     }
-
-    public MainMenu getMainMenuPage(){return mainMenuPage;}
-
-    public FirstPage getFirstPage(){return firstPage;}
-
-    public SecondPage getSecondPage(){return secondPage;}
-
-    public Students[] getStudents(){
-        return students;
+    public void showMenuPage(){
+        menuPage.setVisible(true);
+        addStudentPage.setVisible(false);
+        listStudentPage.setVisible(false);
     }
 
-    public void setStudents(Students[] students){
-        this.students = students;
+    public void showAddStudentPage(){
+        menuPage.setVisible(false);
+        addStudentPage.setVisible(true);
+        listStudentPage.setVisible(false);
     }
-
+    public void showListStudentPage(){
+        menuPage.setVisible(false);
+        addStudentPage.setVisible(false);
+        listStudentPage.setVisible(true);
+        listStudentPage.fillArea();
+    }
 }
